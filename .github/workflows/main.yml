@@ -36,7 +36,7 @@ jobs:
 
       # パッケージのダウンロード
       - name: cd
-        run: ls -la
+        run: ls -la flutter
 
       # パッケージのダウンロード
       - name: Download Flutter packages
