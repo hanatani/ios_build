@@ -36,6 +36,7 @@ jobs:
 
       # パッケージのダウンロード
       - name: Download Flutter packages
+        run: cd $GITHUB_PATH
         run: flutter pub get
 
       # 証明書の生成
