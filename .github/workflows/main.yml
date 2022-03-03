@@ -35,8 +35,11 @@ jobs:
         run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH # GITHUB_PATH にどんどんぶちこめばいいらしい
 
       # パッケージのダウンロード
-      - name: Download Flutter packages
+      - name: cd
         run: cd $GITHUB_PATH
+
+      # パッケージのダウンロード
+      - name: Download Flutter packages
         run: flutter pub get
 
       # 証明書の生成
