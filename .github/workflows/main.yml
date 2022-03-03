@@ -36,7 +36,7 @@ jobs:
 
       # パッケージのダウンロード
       - name: cd
-        run: echo $GITHUB_PATH
+        run: ls -la
 
       # パッケージのダウンロード
       - name: Download Flutter packages
