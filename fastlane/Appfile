@@ -1,0 +1,6 @@
+app_identifier("sample-App.sample-App210207") # The bundle identifier of your app
+apple_id("hanatani.mitsu@gmail.com") # Your Apple email address
+
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

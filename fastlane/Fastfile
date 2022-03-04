@@ -1,0 +1,68 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :test do
+    #run_tests(device: "iPhone 13 Pro Max", scheme: "sample AppTests")
+    #run_tests(devices: ["iPhone 13", "iPhone 13 Pro Max"], open_report: true, only_testing: "sample AppTests")
+    #run_tests(devices: ["iPhone 13 Pro Max"], open_report: true, skip_testing: "sample AppUITests")
+    run_tests(device: "iPhone 8", only_testing: "sample AppTests")
+  end
+
+  # 現在のブランチへコミット
+  lane :commit_push do |options|
+     puts git_remote_branch
+     git_commit(path: "./*", message: options[:msg])
+     push_to_git_remote(tags:false)
+  end
+
+  # version build 番号を更新して.ipa ファイルの作成
+  lane :build do |options|
+    # バージョン更新
+    if options[:version]
+      increment_version_number(
+        version_number: options[:version]
+      )
+    end
+    
+    #increment_build_number(
+    #  build_number: options[:build]
+    #)
+    trailing_number = get_build_number.split('.').last.to_i
+    # get_version_numberを取得、ビルド番号の末尾の値を1つ増やす
+    next_build_number = "#{get_version_number}.#{trailing_number + 1}"
+    # ビルド番号を指定し、更新
+    increment_build_number(build_number: next_build_number)
+    
+    build_ios_app(
+      scheme: "sample App",
+      configuration: "Debug",
+      export_method: "development",
+      #output_directory: "./build/ipa/" + Time.new.strftime("%Y%m%d/%H%M"),
+      output_name: "MyApp.ipa",
+      include_bitcode: false,
+      export_options: {
+         compileBitcode: false,
+         uploadBitcode: false,
+         provisioningProfiles: {
+           "co.jp.sample.sampleApp" => "sampleAppProvisioning",
+         }
+      }
+    )
+  end
+end
