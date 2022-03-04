@@ -35,8 +35,8 @@ jobs:
         run: xcodebuild -version
 
       # Bundleインストール
-      #- name: Bundle Install
-      #  run: bundle install
+      - name: Bundle Install
+        run: bundle install
       
       # 証明書の生成
       - name: Import Provisioning Profile
