@@ -1,4 +1,4 @@
-app_identifier("sample-App.sample-App210207") # The bundle identifier of your app
+app_identifier("co.jp.sample.sampleApp") # The bundle identifier of your app
 apple_id("hanatani.mitsu@gmail.com") # Your Apple email address
 
 

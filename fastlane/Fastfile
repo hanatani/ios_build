@@ -53,7 +53,7 @@ platform :ios do
       scheme: "sample App",
       configuration: "Debug",
       export_method: "development",
-      #output_directory: "./build/ipa/" + Time.new.strftime("%Y%m%d/%H%M"),
+      output_directory: "./build/ipa/" + Time.new.strftime("%Y%m%d/%H%M"),
       output_name: "MyApp.ipa",
       include_bitcode: false,
       export_options: {
