@@ -52,6 +52,9 @@ jobs:
           p12-password: ${{ secrets.CERTIFICATE_PASSWORD }}
       
       - name: Upload a new build to App Store Connect
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+          CERT_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
         run: bundle exec fastlane build
       
 #      - name: Build # シミュレーター向けにビルド

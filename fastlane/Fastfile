@@ -48,7 +48,7 @@ platform :ios do
     next_build_number = "#{get_version_number}.#{trailing_number + 1}"
     # ビルド番号を指定し、更新
     increment_build_number(build_number: next_build_number)
-    
+    import_certificates_and_provisioning_profile
     build_ios_app(
       scheme: "sample App",
       configuration: "Debug",
@@ -64,5 +64,20 @@ platform :ios do
          #}
       }
     )
+  end
+
+  private_lane :import_certificates_and_provisioning_profile do
+      create_keychain(
+          name: "mykeychain",
+          password: ENV["KEYCHAIN_PASSWORD"],
+          timeout: 1800
+      )
+      import_certificate(
+          certificate_path: "cert/development/証明書.p12",
+          certificate_password: ENV["CERT_PASSWORD"],
+          keychain_name: "mykeychain",
+          keychain_password: ENV["KEYCHAIN_PASSWORD"]
+      )
+      install_provisioning_profile(path: "cert/development/9373ec01-333c-40a2-9fd1-03fa0509e0ac.mobileprovision")
   end
 end
