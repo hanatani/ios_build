@@ -48,7 +48,7 @@ platform :ios do
     next_build_number = "#{get_version_number}.#{trailing_number + 1}"
     # ビルド番号を指定し、更新
     increment_build_number(build_number: next_build_number)
-    import_certificates_and_provisioning_profile
+    
     build_ios_app(
       scheme: "sample App",
       configuration: "Debug",
