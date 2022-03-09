@@ -79,7 +79,6 @@ platform :ios do
 #        timeout: 1800
 #    )
     update_code_signing_settings(
-      path: "sample App.xcodeproj",
       use_automatic_signing: false,
       team_id: ENV['TEAM_ID'],
       code_sign_identity: "iPhone Developer",
