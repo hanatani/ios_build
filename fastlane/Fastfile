@@ -59,9 +59,9 @@ platform :ios do
       export_options: {
          compileBitcode: false,
          uploadBitcode: false,
-         #provisioningProfiles: {
-         #  "co.jp.sample.sampleApp" => "sampleAppProvisioning",
-         #}
+         provisioningProfiles: {
+           "co.jp.sample.sampleApp" => "sampleAppProvisioning",
+         }
       }
     )
   end
