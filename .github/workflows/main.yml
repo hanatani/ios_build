@@ -52,8 +52,8 @@ jobs:
           p12-password: ${{ secrets.CERTIFICATE_PASSWORD }}
       
       # .ipaファイルを作成する
-      - name: Upload a new build to .ipa
+      - name: Upload a new build_GitHub to .ipa
         env:
           BUNDIE_IDENTIFIER: ${{ secrets.BUNDIE_IDENTIFIER }}
           TEAM_ID: ${{ secrets.TEAM_ID }}
-        run: bundle exec fastlane build
+        run: bundle exec fastlane build_GitHub
