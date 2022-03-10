@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ develop ]
   pull_request:
     branches: [ main ]
 
@@ -30,9 +30,9 @@ jobs:
       - name: Select Xcode version 
         run: sudo xcode-select -s '/Applications/Xcode_13.2.1.app/Contents/Developer'
 
-      # バージョン確認
-      - name: Show Xcode version
-        run: xcodebuild -version
+#      # バージョン確認
+#      - name: Show Xcode version
+#        run: xcodebuild -version
 
       # Bundleインストール
       - name: Bundle Install
@@ -51,9 +51,9 @@ jobs:
           p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
           p12-password: ${{ secrets.CERTIFICATE_PASSWORD }}
       
-       # testする
-      - name: test
-        run: bundle exec fastlane test
+#       # testする
+#      - name: test
+#        run: bundle exec fastlane test
       
       # .ipaファイルを作成する
       - name: Upload a new build_GitHub to .ipa
@@ -62,8 +62,13 @@ jobs:
           TEAM_ID: ${{ secrets.TEAM_ID }}
         run: bundle exec fastlane build_GitHub
       
+      # .ipaファイルのダウンロード表示
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
           name: "MyApp.ipa"
           path: "/Users/runner/work/ios_build/ios_build/build/ipa/MyApp.ipa"
+      
+       - name: git commit
+        env:
+        run: bundle exec fastlane commit_push msg "gitからビルドアップ"

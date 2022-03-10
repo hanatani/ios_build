@@ -26,7 +26,6 @@ platform :ios do
 
   # 現在のブランチへコミット
   lane :commit_push do |options|
-     puts git_remote_branch
      git_commit(path: "./*", message: options[:msg])
      push_to_git_remote(tags:false)
   end
@@ -77,6 +76,12 @@ platform :ios do
   # GitHub用 version build 番号を更新して.ipa ファイルの作成
   lane :build_GitHub do |options|
     settings_team_id_and_bundle_identifier
+
+    trailing_number = get_build_number.split('.').last.to_i
+    # get_version_numberを取得、ビルド番号の末尾の値を1つ増やす
+    next_build_number = "#{get_version_number}.#{trailing_number + 1}"
+    # ビルド番号を指定し、更新
+    increment_build_number(build_number: next_build_number)
 
     # .ipaファイルの作成
     build_ios_app(
