@@ -26,7 +26,7 @@ platform :ios do
 
   # 現在のブランチへコミット
   lane :commit_push do |options|
-     #puts git_remote_branch
+     git_pull(rebase: true)
      git_commit(path: "./*", message: options[:msg])
      push_to_git_remote(tags:false)
   end
