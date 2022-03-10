@@ -82,7 +82,7 @@ platform :ios do
       use_automatic_signing: false,
       team_id: ENV['TEAM_ID'],
       code_sign_identity: "iPhone Developer",
-      bundle_identifier: "co.jp.sample.sampleApp"
+      bundle_identifier: ENV['BUNDIE_IDENTIFIER']
     )
 #    import_certificate(
 #        certificate_path: "cert/development/証明書.p12",

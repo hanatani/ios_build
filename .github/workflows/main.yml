@@ -23,7 +23,7 @@ jobs:
     steps: #一連のタスク
 
       # チェックアウト
-      - name: Checks-out my repository # step に名前をつけられる なくてもいい
+      - name: Checks-out my repository
         uses: actions/checkout@v2
       
       # Xcode 13.2.1 を使う
@@ -37,21 +37,6 @@ jobs:
       # Bundleインストール
       - name: Bundle Install
         run: bundle install
-
-#      - name: setup cache      
-#        uses: actions/cache@v1
-#        with: 
-#          path: /Users/runner/hostedtoolcache/flutter
-#          key: ${{runner.OS}}-flutter-install-cache
-#
-#      - name: install flutter      
-#        uses: subosito/flutter-action@v1
-#        with:
-#          flutter-version: '1.20.2'
-#          channel: 'stable'
-#          
-#      - name: flutter dependencies install
-#        run: flutter pub get
       
       # 証明書の生成
       - name: Import Provisioning Profile
@@ -66,68 +51,9 @@ jobs:
           p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
           p12-password: ${{ secrets.CERTIFICATE_PASSWORD }}
       
-      - name: Upload a new build to App Store Connect
+      # .ipaファイルを作成する
+      - name: Upload a new build to .ipa
         env:
-          KEYCHAIN_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
-          CERT_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+          BUNDIE_IDENTIFIER: ${{ secrets.BUNDIE_IDENTIFIER }}
           TEAM_ID: ${{ secrets.TEAM_ID }}
         run: bundle exec fastlane build
-      
-#      - run: flutter build ios
-#      
-#      # 頑張ってipaを出力します
-#      - name: XCode Build Archive
-#        uses: yukiarrr/ios-build-action@v1.1.1
-#        with:
-#          project-path: sample App.xcodeproj
-#          p12-base64: ${{ secrets.CERTIFICATES_P12 }}
-#          certificate-password: ${{ secrets.CERTIFICATE_PASSWORD }}
-#          mobileprovision-base64: ${{ secrets.PROVISIONING_PROFILE }}
-#          code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
-#          team-id: ${{ secrets.TEAM_ID }}
-#          output-path: app-release.ipa
-#          export-method: development
-      
-#      - name: Upload a new build to App Store Connect
-#        env:
-#          KEYCHAIN_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
-#          CERT_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
-#        run: bundle exec fastlane build
-      
-#      - name: Build # シミュレーター向けにビルド
-#        run: xcodebuild -sdk iphonesimulator -configuration Debug build
-
-#      # Flutter のインストール
-#      - name: Install Flutter
-#        run: git clone https://github.com/flutter/flutter.git # ターミナルでこれが実行されるイメージ
-#
-#      # PATH を通す
-#      - name: Add path
-#        run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH # GITHUB_PATH にどんどんぶちこめばいいらしい
-#
-#      # パッケージのダウンロード
-#      - name: cd
-#        run: ls -la flutter
-#
-#      # パッケージのダウンロード
-#      - name: Download Flutter packages
-#        run: flutter pub get
-#
-#      # 証明書の生成
-#      - name: Import Provisioning Profile
-#        run: | # 複数行の run を書きたい場合はこうする 以下、Provisioning Profilesを置くべきディレクトリにデコードしている
-#          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-#          echo -n ${{ secrets.PROVISIONING_PROFILE }} | base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/9373ec01-333c-40a2-9fd1-03fa0509e0ac.mobileprovision
-#
-#      # 署名をする
-#      - name: Import Code-Signing Certificates
-#        uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
-#        with:
-#          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
-#          p12-password: ${{ secrets.CERTIFICATE_PASSWORD }}
-#
-#      # ipa ファイルの出力
-#      - name: Create ipa file
-#        # GITHUB_RUN_NUMBER をビルドナンバーに指定することで被りがないようにしている。
-#        run: flutter build ipa --export-options-plist=ExportOptions.plist #--build-number ${GITHUB_RUN_NUMBER}
-
