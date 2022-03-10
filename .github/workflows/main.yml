@@ -51,6 +51,10 @@ jobs:
           p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
           p12-password: ${{ secrets.CERTIFICATE_PASSWORD }}
       
+       # testする
+      - name: test
+        run: bundle exec fastlane test
+      
       # .ipaファイルを作成する
       - name: Upload a new build_GitHub to .ipa
         env:
