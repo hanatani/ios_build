@@ -56,7 +56,7 @@ jobs:
       # 証明書の生成
       - name: Import Provisioning Profile
         run: | # Provisioning Profilesを置くべきディレクトリにデコードしている
-#          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           echo -n ${{ secrets.PROVISIONING_PROFILE }} | base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/9373ec01-333c-40a2-9fd1-03fa0509e0ac.mobileprovision
 
       # 署名をする
