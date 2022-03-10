@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ develop ]
   pull_request:
     branches: [ main ]
 
@@ -68,3 +68,7 @@ jobs:
         with:
           name: "MyApp.ipa"
           path: "/Users/runner/work/ios_build/ios_build/build/ipa/MyApp.ipa"
+      
+       - name: git commit
+        env:
+        run: bundle exec fastlane commit_push msg "gitからビルドアップ"

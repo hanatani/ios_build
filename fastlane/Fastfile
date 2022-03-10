@@ -26,7 +26,6 @@ platform :ios do
 
   # 現在のブランチへコミット
   lane :commit_push do |options|
-     git_pull(rebase: true)
      git_commit(path: "./*", message: options[:msg])
      push_to_git_remote(tags:false)
   end
@@ -100,7 +99,5 @@ platform :ios do
          }
       }
     )
-
-    commit_push(msg: "githubからバージョンアップ：#{next_build_number}")
   end
 end
