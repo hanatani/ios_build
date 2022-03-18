@@ -34,8 +34,10 @@ platform :ios do
   lane :build do |options|
     # バージョン更新
     if options[:version]
+      version = "#{get_version_number}"
       increment_version_number(
-        version_number: options[:version]
+        version_number: options[:version],
+        xcodeproj: "./sample App.xcodeproj"
       )
     end
     
