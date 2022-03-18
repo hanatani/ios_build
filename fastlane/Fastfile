@@ -52,10 +52,7 @@ platform :ios do
       export_method: "development",
       output_directory: "./ipa/" + Time.new.strftime("%Y%m%d/%H%M"),
       output_name: "MyApp.ipa",
-      include_bitcode: false,
       export_options: {
-         compileBitcode: false,
-         uploadBitcode: false,
          provisioningProfiles: {
           "co.jp.sample.sampleApp" => "co.jp.sample.sampleApp",
          }
@@ -90,10 +87,7 @@ platform :ios do
       export_method: "development",
       output_directory: "./build/ipa/",
       output_name: "MyApp.ipa",
-      include_bitcode: false,
       export_options: {
-         compileBitcode: false,
-         uploadBitcode: false,
          provisioningProfiles: {
           ENV['BUNDIE_IDENTIFIER'] => ENV['BUNDIE_IDENTIFIER'],
          }
