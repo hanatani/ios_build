@@ -75,7 +75,7 @@ platform :ios do
     update_code_signing_settings(
       use_automatic_signing: false,
       team_id: ENV['TEAM_ID'],
-      code_sign_identity: "ios Developer",
+      code_sign_identity: "Development",
       bundle_identifier: ENV['BUNDIE_IDENTIFIER']
     )
   end
