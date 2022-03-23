@@ -33,17 +33,25 @@ platform :ios do
   # version build 番号を更新して.ipa ファイルの作成
   lane :build do |options|
     # バージョン更新
-    if options[:version]
-      version = "#{get_version_number}"
-      increment_version_number(
-        version_number: options[:version],
-        xcodeproj: "./sample App.xcodeproj"
+    if options[:version] #version引数があった場合バーションをインクリメントする※例：　fastlane build version:minor 
+      increment_version_number_in_xcodeproj(
+        #version_number: options[:version], # 引数で指定
+        #bump_type: 'patch' #1.0.0←ここ
+        #bump_type: 'minor', #1.0←ここ
+        #bump_type: 'major', #1←ここ
+        bump_type: options[:version],
+        xcodeproj: "./sample App.xcodeproj",
+        omit_zero_patch_version: true # trueの場合はパッチのゼロを省略.0は1.0になる※bump_typeを指定する必要があります
       )
     end
+    # 上げたバージョン取得
+    version = get_version_number_from_xcodeproj(
+                xcodeproj: "./sample App.xcodeproj"
+              )
     
     trailing_number = get_build_number.split('.').last.to_i
     # get_version_numberを取得、ビルド番号の末尾の値を1つ増やす
-    next_build_number = "#{get_version_number}.#{trailing_number + 1}"
+    next_build_number = "#{version}.#{trailing_number + 1}"
     # ビルド番号を指定し、更新
     increment_build_number(build_number: next_build_number)
     

@@ -63,5 +63,6 @@ rbenv exec bundle install
 #これでfastlane実行
 rbenv exec bundle exec fastlane lane名
  
-
+#これでプラグイン
+rbenv exec bundle exec fastlane add_plugin versioning
 
