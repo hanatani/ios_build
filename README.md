@@ -4,8 +4,9 @@ https://qiita.com/tkj/items/c6dad4efc0dff4fecd93
 
 https://www.yururiwork.net/archives/1563
 
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+#fastlaneのインストール
 
+`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
 brew -v
 
@@ -34,6 +35,7 @@ vim ~/.bash_profile
   export PATH=${HOME}/.rbenv/bin:${PATH} && \
   eval "$(rbenv init -)"
 
+＃bash反映
 source ~/.bash_profile
 
 gem install fastlane
@@ -42,6 +44,8 @@ gem install fastlane
 
 
 #これでGemfileが生成されます。
+
+gem install bundler #これいるかも忘れました。
 cd プロジェクトファイル
 bundle init
 
