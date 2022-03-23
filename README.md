@@ -123,3 +123,13 @@ fastlane/Fastfailの中身を新しいプロジェクトのFastfailに必要な�
 githubのActions secretsに定数を作ってそれぞれの値を用意しておくことが前提です。
 ・.github\workflows\main.yml　例：${{ secrets.PROVISIONING_PROFILE }}
 
+PROVISIONING_PROFILE
+```sh
+base64 sampleAppProvisioning-11.mobileprovision | tr -d "\n" | pbcopy
+```
+
+CERTIFICATES_P12
+```sh
+base64 証明書.p12 | tr -d "\n" | pbcopy
+```
+
