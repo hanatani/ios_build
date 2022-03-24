@@ -48,10 +48,13 @@ platform :ios do
     version = get_version_number_from_xcodeproj(
                 xcodeproj: "./sample App.xcodeproj"
               )
-    
-    trailing_number = get_build_number.split('.').last.to_i
+    if options[:version]
+      trailing_number = 0
+    else
+      trailing_number = get_build_number.split('.').last.to_i + 1
+    end
     # get_version_numberを取得、ビルド番号の末尾の値を1つ増やす
-    next_build_number = "#{version}.#{trailing_number + 1}"
+    next_build_number = "#{version}.#{trailing_number}"
     # ビルド番号を指定し、更新
     increment_build_number(build_number: next_build_number)
     
